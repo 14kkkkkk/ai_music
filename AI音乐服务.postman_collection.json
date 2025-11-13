@@ -1,0 +1,360 @@
+{
+  "info": {
+    "name": "AI 音乐服务 API",
+    "description": "AI 音乐生成服务的完整 API 集合",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://47.252.36.81:3001",
+      "type": "string"
+    },
+    {
+      "key": "taskId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "uploadUrl",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. 基础服务",
+      "item": [
+        {
+          "name": "服务信息",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "健康检查",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. 歌词生成",
+      "item": [
+        {
+          "name": "生成歌词",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response.code === 200 && response.data.taskId) {",
+                  "    pm.collectionVariables.set('taskId', response.data.taskId);",
+                  "    console.log('任务ID已保存:', response.data.taskId);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"一首关于城市夜晚的歌\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/music/generate-lyrics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "generate-lyrics"]
+            }
+          }
+        },
+        {
+          "name": "查询歌词详情",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/music/lyrics/{{taskId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "lyrics", "{{taskId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. 音乐生成",
+      "item": [
+        {
+          "name": "生成音乐 - 简单模式",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response.code === 200 && response.data.taskId) {",
+                  "    pm.collectionVariables.set('taskId', response.data.taskId);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customMode\": false,\n  \"model\": \"V5\",\n  \"prompt\": \"一首轻快的流行歌曲，充满活力\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/music/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "generate"]
+            }
+          }
+        },
+        {
+          "name": "生成音乐 - 自定义模式",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response.code === 200 && response.data.taskId) {",
+                  "    pm.collectionVariables.set('taskId', response.data.taskId);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customMode\": true,\n  \"model\": \"V5\",\n  \"prompt\": \"[Verse]\\n城市的夜晚静悄悄\\n[Chorus]\\n灯火阑珊处\",\n  \"title\": \"城市夜曲\",\n  \"tags\": \"流行, 抒情\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/music/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "generate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. 文件上传",
+      "item": [
+        {
+          "name": "上传音频文件",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response.code === 200 && response.data.url) {",
+                  "    pm.collectionVariables.set('uploadUrl', response.data.url);",
+                  "    console.log('文件URL已保存:', response.data.url);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "audio",
+                  "type": "file",
+                  "src": "test-audio.mp3"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/upload/audio",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "upload", "audio"]
+            }
+          }
+        },
+        {
+          "name": "获取文件列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/upload/list",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "upload", "list"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. 任务管理",
+      "item": [
+        {
+          "name": "获取所有任务",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/music/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "获取任务状态",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/music/task/{{taskId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "task", "{{taskId}}"]
+            }
+          }
+        },
+        {
+          "name": "获取任务详情（Suno API）",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/music/task/{{taskId}}/detail",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "task", "{{taskId}}", "detail"]
+            }
+          }
+        },
+        {
+          "name": "删除任务",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/music/task/{{taskId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "task", "{{taskId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. 高级功能",
+      "item": [
+        {
+          "name": "添加人声",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response.code === 200 && response.data.taskId) {",
+                  "    pm.collectionVariables.set('taskId', response.data.taskId);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uploadUrl\": \"{{uploadUrl}}\",\n  \"prompt\": \"[Verse]\\n测试人声\\n[Chorus]\\n副歌\",\n  \"title\": \"测试歌曲\",\n  \"style\": \"流行\",\n  \"vocalGender\": \"f\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/music/add-vocals",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "add-vocals"]
+            }
+          }
+        },
+        {
+          "name": "添加伴奏",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response.code === 200 && response.data.taskId) {",
+                  "    pm.collectionVariables.set('taskId', response.data.taskId);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uploadUrl\": \"{{uploadUrl}}\",\n  \"title\": \"测试歌曲\",\n  \"tags\": \"流行, 轻快\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/music/add-instrumental",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "music", "add-instrumental"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+

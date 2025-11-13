@@ -1,0 +1,251 @@
+2025-11-13 20:02:59 [INFO] ========================================
+2025-11-13 20:02:59 [INFO] 📁 文件服务器已启动
+2025-11-13 20:02:59 [INFO] ========================================
+2025-11-13 20:02:59 [INFO] 📍 本地访问: http://localhost:8081
+2025-11-13 20:02:59 [INFO] 📍 局域网访问: http://192.168.1.48:8081
+2025-11-13 20:02:59 [INFO] 📍 外网访问: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:02:59 [INFO] 📂 文件目录: ./uploads
+2025-11-13 20:02:59 [INFO] 📊 健康检查: http://localhost:8081/health
+2025-11-13 20:02:59 [INFO] 📋 文件列表: http://localhost:8081/list
+2025-11-13 20:02:59 [INFO] ⚠️  请确保防火墙已开放 8081 端口
+2025-11-13 20:02:59 [INFO] ========================================
+2025-11-13 20:02:59 [INFO] ========================================
+2025-11-13 20:02:59 [INFO] 🎵 AI 音乐服务已启动
+2025-11-13 20:02:59 [INFO] ========================================
+2025-11-13 20:02:59 [INFO] 📍 本地访问: http://localhost:3001
+2025-11-13 20:02:59 [INFO] 📍 外网访问: http://你的服务器IP:3001
+2025-11-13 20:02:59 [INFO] 📊 健康检查: http://localhost:3001/health
+2025-11-13 20:02:59 [INFO] 📖 API文档: http://localhost:3001/
+2025-11-13 20:02:59 [INFO] 🔧 环境: production
+2025-11-13 20:02:59 [INFO] 🔑 Suno API: 已配置
+2025-11-13 20:02:59 [INFO] 📡 回调地址: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:02:59 [INFO] ⚠️  请确保防火墙已开放 3001 端口
+2025-11-13 20:02:59 [INFO] ========================================
+2025-11-13 20:03:22 [INFO] GET /health {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:03:22 [INFO] GET / {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:03:22 [INFO] GET /api/music/tasks {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:03:22 [INFO] 任务文件不存在，创建新文件
+2025-11-13 20:03:22 [INFO] 📦 加载了 0 个任务
+2025-11-13 20:03:22 [INFO] [文件服务器] GET /health {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:03:22 [INFO] [文件服务器] GET /list {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:06 [INFO] GET /health {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:06 [INFO] GET / {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:06 [INFO] GET /api/music/tasks {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:06 [INFO] POST /api/music/generate-lyrics {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:06 [INFO] ✅ Suno API 已初始化: 28f61cf2...
+2025-11-13 20:04:06 [INFO] 📝 调用 Suno API /lyrics {"params":{"prompt":"一首关于测试的歌","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics"}}
+2025-11-13 20:04:07 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"8384c557d013543ed9ae53187aaf4245"}}}
+2025-11-13 20:04:07 [INFO] 创建任务 {"taskId":"8384c557d013543ed9ae53187aaf4245","metadata":{"prompt":"一首关于测试的歌","type":"lyrics"}}
+2025-11-13 20:04:12 [INFO] GET /api/music/lyrics/8384c557d013543ed9ae53187aaf4245 {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:12 [INFO] 🔍 查询歌词详情 {"taskId":"8384c557d013543ed9ae53187aaf4245"}
+2025-11-13 20:04:13 [INFO] ✅ 歌词详情响应 {"data":{"code":200,"msg":"success","data":{"taskId":"8384c557d013543ed9ae53187aaf4245","param":"{\"callBackUrl\":\"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics\",\"prompt\":\"一首关于测试的歌\"}","response":null,"status":"PENDING","type":null,"errorCode":null,"errorMessage":null}}}
+2025-11-13 20:04:13 [INFO] 更新任务 {"taskId":"8384c557d013543ed9ae53187aaf4245","data":{"status":"pending","metadata":{"lyrics":"","title":"","type":"lyrics"},"error":null}}
+2025-11-13 20:04:13 [INFO] POST /api/upload/audio {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:13 [ERROR] 服务器错误 {"error":"只支持 MP3, WAV, FLAC 格式","stack":"Error: 只支持 MP3, WAV, FLAC 格式\n    at fileFilter (C:\\work\\ai_music\\ai_music_service_deploy\\routes\\upload.js:36:8)\n    at wrappedFileFilter (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\multer\\index.js:44:7)\n    at Multipart.<anonymous> (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\multer\\lib\\make-middleware.js:109:7)\n    at Multipart.emit (node:events:519:28)\n    at HeaderParser.cb (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\busboy\\lib\\types\\multipart.js:358:14)\n    at HeaderParser.push (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\busboy\\lib\\types\\multipart.js:162:20)\n    at SBMH.ssCb [as _cb] (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\busboy\\lib\\types\\multipart.js:394:37)\n    at feed (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\streamsearch\\lib\\sbmh.js:200:10)\n    at SBMH.push (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\streamsearch\\lib\\sbmh.js:104:16)\n    at Multipart._write (C:\\work\\ai_music\\ai_music_service_deploy\\node_modules\\busboy\\lib\\types\\multipart.js:567:19)","path":"/api/upload/audio"}
+2025-11-13 20:04:13 [INFO] GET /api/upload/list {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:13 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:13 [INFO] 🎵 调用 Suno API /music {"params":{"customMode":false,"instrumental":false,"model":"V5","prompt":"一首轻快的流行歌曲","title":"","tags":"","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:04:13 [ERROR] ❌ 生成音乐失败 {"error":{"timestamp":1763035453634,"status":404,"error":"Not Found","message":"No message available","path":"/api/v1/music"}}
+2025-11-13 20:04:13 [ERROR] 生成音乐失败 {"error":"Failed to generate music"}
+2025-11-13 20:04:13 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:04:13 [INFO] 🎵 调用 Suno API /music {"params":{"customMode":true,"instrumental":false,"model":"V5","prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:04:13 [ERROR] ❌ 生成音乐失败 {"error":{"timestamp":1763035453836,"status":404,"error":"Not Found","message":"No message available","path":"/api/v1/music"}}
+2025-11-13 20:04:13 [ERROR] 生成音乐失败 {"error":"Failed to generate music"}
+2025-11-13 20:05:10 [INFO] ========================================
+2025-11-13 20:05:10 [INFO] 📁 文件服务器已启动
+2025-11-13 20:05:10 [INFO] ========================================
+2025-11-13 20:05:10 [INFO] 📍 本地访问: http://localhost:8081
+2025-11-13 20:05:10 [INFO] 📍 局域网访问: http://192.168.1.48:8081
+2025-11-13 20:05:10 [INFO] 📍 外网访问: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:05:10 [INFO] 📂 文件目录: ./uploads
+2025-11-13 20:05:10 [INFO] 📊 健康检查: http://localhost:8081/health
+2025-11-13 20:05:10 [INFO] 📋 文件列表: http://localhost:8081/list
+2025-11-13 20:05:10 [INFO] ⚠️  请确保防火墙已开放 8081 端口
+2025-11-13 20:05:10 [INFO] ========================================
+2025-11-13 20:05:10 [INFO] ========================================
+2025-11-13 20:05:10 [INFO] 🎵 AI 音乐服务已启动
+2025-11-13 20:05:10 [INFO] ========================================
+2025-11-13 20:05:10 [INFO] 📍 本地访问: http://localhost:3001
+2025-11-13 20:05:10 [INFO] 📍 外网访问: http://你的服务器IP:3001
+2025-11-13 20:05:10 [INFO] 📊 健康检查: http://localhost:3001/health
+2025-11-13 20:05:10 [INFO] 📖 API文档: http://localhost:3001/
+2025-11-13 20:05:10 [INFO] 🔧 环境: production
+2025-11-13 20:05:10 [INFO] 🔑 Suno API: 已配置
+2025-11-13 20:05:10 [INFO] 📡 回调地址: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:05:10 [INFO] ⚠️  请确保防火墙已开放 3001 端口
+2025-11-13 20:05:10 [INFO] ========================================
+2025-11-13 20:05:23 [INFO] GET /health {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:23 [INFO] GET / {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:23 [INFO] GET /api/music/tasks {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:23 [INFO] 📦 加载了 1 个任务
+2025-11-13 20:05:23 [INFO] POST /api/music/generate-lyrics {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:23 [INFO] ✅ Suno API 已初始化: 28f61cf2...
+2025-11-13 20:05:23 [INFO] 📝 调用 Suno API /lyrics {"params":{"prompt":"一首关于测试的歌","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics"}}
+2025-11-13 20:05:24 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"897108b6a7300ee2a6fd36f5c7c40e9d"}}}
+2025-11-13 20:05:24 [INFO] 创建任务 {"taskId":"897108b6a7300ee2a6fd36f5c7c40e9d","metadata":{"prompt":"一首关于测试的歌","type":"lyrics"}}
+2025-11-13 20:05:29 [INFO] GET /api/music/lyrics/897108b6a7300ee2a6fd36f5c7c40e9d {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:29 [INFO] 🔍 查询歌词详情 {"taskId":"897108b6a7300ee2a6fd36f5c7c40e9d"}
+2025-11-13 20:05:30 [INFO] ✅ 歌词详情响应 {"data":{"code":200,"msg":"success","data":{"taskId":"897108b6a7300ee2a6fd36f5c7c40e9d","param":"{\"callBackUrl\":\"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics\",\"prompt\":\"一首关于测试的歌\"}","response":null,"status":"PENDING","type":null,"errorCode":null,"errorMessage":null}}}
+2025-11-13 20:05:30 [INFO] 更新任务 {"taskId":"897108b6a7300ee2a6fd36f5c7c40e9d","data":{"status":"pending","metadata":{"lyrics":"","title":"","type":"lyrics"},"error":null}}
+2025-11-13 20:05:30 [INFO] POST /api/upload/audio {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:30 [INFO] 文件上传成功 {"filename":"audio-1763035530450-435097375.mp3","size":4,"url":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763035530450-435097375.mp3"}
+2025-11-13 20:05:30 [INFO] GET /api/upload/list {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:30 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:30 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":false,"instrumental":false,"model":"V5","prompt":"一首轻快的流行歌曲","title":"","tags":"","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:05:30 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"638d8e43f2e682d2969a4b1cdfc83d3e"}}}
+2025-11-13 20:05:30 [INFO] 创建任务 {"taskId":"638d8e43f2e682d2969a4b1cdfc83d3e","metadata":{"prompt":"一首轻快的流行歌曲","type":"music"}}
+2025-11-13 20:05:30 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:05:30 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":true,"instrumental":false,"model":"V5","prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:05:30 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"668ecf6e294ea52bcba39c9f809da660"}}}
+2025-11-13 20:05:30 [INFO] 创建任务 {"taskId":"668ecf6e294ea52bcba39c9f809da660","metadata":{"prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","type":"music"}}
+2025-11-13 20:09:28 [INFO] GET / {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:28 [INFO] GET /health {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:28 [INFO] GET /api/music/tasks {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:28 [INFO] POST /api/music/generate-lyrics {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:28 [INFO] 📝 调用 Suno API /lyrics {"params":{"prompt":"一首关于测试的轻快歌曲","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics"}}
+2025-11-13 20:09:29 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"ef867740520d035a242ebc7864dc5ed9"}}}
+2025-11-13 20:09:29 [INFO] 创建任务 {"taskId":"ef867740520d035a242ebc7864dc5ed9","metadata":{"prompt":"一首关于测试的轻快歌曲","type":"lyrics"}}
+2025-11-13 20:09:34 [INFO] GET /api/music/lyrics/ef867740520d035a242ebc7864dc5ed9 {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:34 [INFO] 🔍 查询歌词详情 {"taskId":"ef867740520d035a242ebc7864dc5ed9"}
+2025-11-13 20:09:35 [INFO] ✅ 歌词详情响应 {"data":{"code":200,"msg":"success","data":{"taskId":"ef867740520d035a242ebc7864dc5ed9","param":"{\"callBackUrl\":\"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics\",\"prompt\":\"一首关于测试的轻快歌曲\"}","response":null,"status":"PENDING","type":null,"errorCode":null,"errorMessage":null}}}
+2025-11-13 20:09:35 [INFO] 更新任务 {"taskId":"ef867740520d035a242ebc7864dc5ed9","data":{"status":"pending","metadata":{"lyrics":"","title":"","type":"lyrics"},"error":null}}
+2025-11-13 20:09:35 [INFO] POST /api/upload/audio {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:35 [INFO] 文件上传成功 {"filename":"audio-1763035775859-221641193.mp3","size":4,"url":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763035775859-221641193.mp3"}
+2025-11-13 20:09:35 [INFO] GET /api/upload/list {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:35 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:35 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":false,"instrumental":false,"model":"V5","prompt":"一首轻快的流行歌曲，充满活力","title":"","tags":"","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:09:36 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"4c85f0f16ec10c7795a47e9aaf93fcff"}}}
+2025-11-13 20:09:36 [INFO] 创建任务 {"taskId":"4c85f0f16ec10c7795a47e9aaf93fcff","metadata":{"prompt":"一首轻快的流行歌曲，充满活力","type":"music"}}
+2025-11-13 20:09:36 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:36 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":true,"instrumental":false,"model":"V5","prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:09:36 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"dd86b647e40cd29d8ea0fd3f60beed89"}}}
+2025-11-13 20:09:36 [INFO] 创建任务 {"taskId":"dd86b647e40cd29d8ea0fd3f60beed89","metadata":{"prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","type":"music"}}
+2025-11-13 20:09:36 [INFO] GET /api/music/task/dd86b647e40cd29d8ea0fd3f60beed89 {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:36 [INFO] GET /api/music/task/dd86b647e40cd29d8ea0fd3f60beed89/detail {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:36 [INFO] 🔍 查询任务详情 {"taskId":"dd86b647e40cd29d8ea0fd3f60beed89"}
+2025-11-13 20:09:36 [ERROR] ❌ 获取任务详情失败 {"error":{"timestamp":1763035776636,"status":404,"error":"Not Found","message":"No message available","path":"/api/v1/music/record-info"}}
+2025-11-13 20:09:36 [ERROR] 获取任务详情失败 {"error":"Failed to get task detail"}
+2025-11-13 20:09:36 [INFO] POST /api/music/add-vocals {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:36 [INFO] 🎤 调用 Suno API /music/add-vocals {"params":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763035775859-221641193.mp3","prompt":"[Verse]\n测试人声\n[Chorus]\n副歌","title":"测试人声","tags":"流行","negativeTags":"无","gender":"f","model":"V5","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:09:36 [ERROR] ❌ 添加人声失败 {"error":{"timestamp":1763035776868,"status":404,"error":"Not Found","message":"No message available","path":"/api/v1/music/add-vocals"}}
+2025-11-13 20:09:36 [ERROR] 添加人声失败 {"error":"Failed to add vocals"}
+2025-11-13 20:09:36 [INFO] POST /api/music/add-instrumental {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:09:36 [INFO] 🎹 调用 Suno API /music/add-instrumental {"params":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763035775859-221641193.mp3","title":"测试伴奏","tags":"流行","model":"V5","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:09:37 [ERROR] ❌ 添加伴奏失败 {"error":{"timestamp":1763035777064,"status":404,"error":"Not Found","message":"No message available","path":"/api/v1/music/add-instrumental"}}
+2025-11-13 20:09:37 [ERROR] 添加伴奏失败 {"error":"Failed to add instrumental"}
+2025-11-13 20:10:48 [INFO] ========================================
+2025-11-13 20:10:48 [INFO] 📁 文件服务器已启动
+2025-11-13 20:10:48 [INFO] ========================================
+2025-11-13 20:10:48 [INFO] 📍 本地访问: http://localhost:8081
+2025-11-13 20:10:48 [INFO] 📍 局域网访问: http://192.168.1.48:8081
+2025-11-13 20:10:48 [INFO] 📍 外网访问: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:10:48 [INFO] 📂 文件目录: ./uploads
+2025-11-13 20:10:48 [INFO] 📊 健康检查: http://localhost:8081/health
+2025-11-13 20:10:48 [INFO] 📋 文件列表: http://localhost:8081/list
+2025-11-13 20:10:48 [INFO] ⚠️  请确保防火墙已开放 8081 端口
+2025-11-13 20:10:48 [INFO] ========================================
+2025-11-13 20:10:48 [INFO] ========================================
+2025-11-13 20:10:48 [INFO] 🎵 AI 音乐服务已启动
+2025-11-13 20:10:48 [INFO] ========================================
+2025-11-13 20:10:48 [INFO] 📍 本地访问: http://localhost:3001
+2025-11-13 20:10:48 [INFO] 📍 外网访问: http://你的服务器IP:3001
+2025-11-13 20:10:48 [INFO] 📊 健康检查: http://localhost:3001/health
+2025-11-13 20:10:48 [INFO] 📖 API文档: http://localhost:3001/
+2025-11-13 20:10:48 [INFO] 🔧 环境: production
+2025-11-13 20:10:48 [INFO] 🔑 Suno API: 已配置
+2025-11-13 20:10:48 [INFO] 📡 回调地址: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:10:48 [INFO] ⚠️  请确保防火墙已开放 3001 端口
+2025-11-13 20:10:48 [INFO] ========================================
+2025-11-13 20:11:05 [INFO] GET / {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:05 [INFO] GET /health {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:05 [INFO] GET /api/music/tasks {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:05 [INFO] 📦 加载了 7 个任务
+2025-11-13 20:11:05 [INFO] POST /api/music/generate-lyrics {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:05 [INFO] ✅ Suno API 已初始化: 28f61cf2...
+2025-11-13 20:11:05 [INFO] 📝 调用 Suno API /lyrics {"params":{"prompt":"一首关于测试的轻快歌曲","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics"}}
+2025-11-13 20:11:06 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"f504f66c68c75b732b7f7e6dd2ec8f20"}}}
+2025-11-13 20:11:06 [INFO] 创建任务 {"taskId":"f504f66c68c75b732b7f7e6dd2ec8f20","metadata":{"prompt":"一首关于测试的轻快歌曲","type":"lyrics"}}
+2025-11-13 20:11:11 [INFO] GET /api/music/lyrics/f504f66c68c75b732b7f7e6dd2ec8f20 {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:11 [INFO] 🔍 查询歌词详情 {"taskId":"f504f66c68c75b732b7f7e6dd2ec8f20"}
+2025-11-13 20:11:11 [INFO] ✅ 歌词详情响应 {"data":{"code":200,"msg":"success","data":{"taskId":"f504f66c68c75b732b7f7e6dd2ec8f20","param":"{\"callBackUrl\":\"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics\",\"prompt\":\"一首关于测试的轻快歌曲\"}","response":null,"status":"PENDING","type":null,"errorCode":null,"errorMessage":null}}}
+2025-11-13 20:11:12 [INFO] 更新任务 {"taskId":"f504f66c68c75b732b7f7e6dd2ec8f20","data":{"status":"pending","metadata":{"lyrics":"","title":"","type":"lyrics"},"error":null}}
+2025-11-13 20:11:12 [INFO] POST /api/upload/audio {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] 文件上传成功 {"filename":"audio-1763035872021-770367678.mp3","size":4,"url":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763035872021-770367678.mp3"}
+2025-11-13 20:11:12 [INFO] GET /api/upload/list {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":false,"instrumental":false,"model":"V5","prompt":"一首轻快的流行歌曲，充满活力","title":"","tags":"","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:11:12 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"4be45b908003d3bf055a720e37b09dee"}}}
+2025-11-13 20:11:12 [INFO] 创建任务 {"taskId":"4be45b908003d3bf055a720e37b09dee","metadata":{"prompt":"一首轻快的流行歌曲，充满活力","type":"music"}}
+2025-11-13 20:11:12 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":true,"instrumental":false,"model":"V5","prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:11:12 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"d3d439292fefaf32ab2913805d2379bb"}}}
+2025-11-13 20:11:12 [INFO] 创建任务 {"taskId":"d3d439292fefaf32ab2913805d2379bb","metadata":{"prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","type":"music"}}
+2025-11-13 20:11:12 [INFO] GET /api/music/task/d3d439292fefaf32ab2913805d2379bb {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] GET /api/music/task/d3d439292fefaf32ab2913805d2379bb/detail {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] 🔍 查询任务详情 {"taskId":"d3d439292fefaf32ab2913805d2379bb"}
+2025-11-13 20:11:12 [INFO] ✅ 任务详情响应 {"data":{"code":200,"msg":"success","data":{"taskId":"d3d439292fefaf32ab2913805d2379bb","parentMusicId":"","param":"{\"callBackUrl\":\"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music\",\"customMode\":true,\"instrumental\":false,\"model\":\"V5\",\"negativeTags\":\"无\",\"prompt\":\"[Verse]\\n测试歌词\\n[Chorus]\\n副歌部分\",\"title\":\"测试歌曲\"}","response":null,"status":"PENDING","type":"chirp-crow","operationType":"generate","errorCode":null,"errorMessage":null,"createTime":1763035872000}}}
+2025-11-13 20:11:12 [INFO] POST /api/music/add-vocals {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] 🎤 调用 Suno API /generate/add-vocals {"params":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763035872021-770367678.mp3","prompt":"[Verse]\n测试人声\n[Chorus]\n副歌","title":"测试人声","tags":"流行","negativeTags":"无","gender":"f","model":"V5","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:11:12 [INFO] ✅ Suno API 响应 {"data":{"code":400,"msg":"style cannot be null","data":null}}
+2025-11-13 20:11:12 [INFO] POST /api/music/add-instrumental {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:11:12 [INFO] 🎹 调用 Suno API /generate/add-instrumental {"params":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763035872021-770367678.mp3","title":"测试伴奏","tags":"流行","model":"V5","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:11:13 [INFO] ✅ Suno API 响应 {"data":{"code":400,"msg":"Please enter negativeTags.","data":null}}
+2025-11-13 20:12:38 [INFO] ========================================
+2025-11-13 20:12:38 [INFO] 📁 文件服务器已启动
+2025-11-13 20:12:38 [INFO] ========================================
+2025-11-13 20:12:38 [INFO] 📍 本地访问: http://localhost:8081
+2025-11-13 20:12:38 [INFO] 📍 局域网访问: http://192.168.1.48:8081
+2025-11-13 20:12:38 [INFO] 📍 外网访问: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:12:38 [INFO] 📂 文件目录: ./uploads
+2025-11-13 20:12:38 [INFO] 📊 健康检查: http://localhost:8081/health
+2025-11-13 20:12:38 [INFO] 📋 文件列表: http://localhost:8081/list
+2025-11-13 20:12:38 [INFO] ⚠️  请确保防火墙已开放 8081 端口
+2025-11-13 20:12:38 [INFO] ========================================
+2025-11-13 20:12:38 [INFO] ========================================
+2025-11-13 20:12:38 [INFO] 🎵 AI 音乐服务已启动
+2025-11-13 20:12:38 [INFO] ========================================
+2025-11-13 20:12:38 [INFO] 📍 本地访问: http://localhost:3001
+2025-11-13 20:12:38 [INFO] 📍 外网访问: http://你的服务器IP:3001
+2025-11-13 20:12:38 [INFO] 📊 健康检查: http://localhost:3001/health
+2025-11-13 20:12:38 [INFO] 📖 API文档: http://localhost:3001/
+2025-11-13 20:12:38 [INFO] 🔧 环境: production
+2025-11-13 20:12:38 [INFO] 🔑 Suno API: 已配置
+2025-11-13 20:12:38 [INFO] 📡 回调地址: https://lumbricoid-earleen-consonantally.ngrok-free.dev
+2025-11-13 20:12:38 [INFO] ⚠️  请确保防火墙已开放 3001 端口
+2025-11-13 20:12:38 [INFO] ========================================
+2025-11-13 20:14:15 [INFO] GET / {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:15 [INFO] GET /health {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:15 [INFO] GET /api/music/tasks {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:15 [INFO] 📦 加载了 10 个任务
+2025-11-13 20:14:15 [INFO] POST /api/music/generate-lyrics {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:15 [INFO] ✅ Suno API 已初始化: 28f61cf2...
+2025-11-13 20:14:15 [INFO] 📝 调用 Suno API /lyrics {"params":{"prompt":"一首关于测试的轻快歌曲","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics"}}
+2025-11-13 20:14:16 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"28902a053d6168a21acb9a924d8f4ba6"}}}
+2025-11-13 20:14:16 [INFO] 创建任务 {"taskId":"28902a053d6168a21acb9a924d8f4ba6","metadata":{"prompt":"一首关于测试的轻快歌曲","type":"lyrics"}}
+2025-11-13 20:14:21 [INFO] GET /api/music/lyrics/28902a053d6168a21acb9a924d8f4ba6 {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:21 [INFO] 🔍 查询歌词详情 {"taskId":"28902a053d6168a21acb9a924d8f4ba6"}
+2025-11-13 20:14:22 [INFO] ✅ 歌词详情响应 {"data":{"code":200,"msg":"success","data":{"taskId":"28902a053d6168a21acb9a924d8f4ba6","param":"{\"callBackUrl\":\"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/lyrics\",\"prompt\":\"一首关于测试的轻快歌曲\"}","response":null,"status":"PENDING","type":null,"errorCode":null,"errorMessage":null}}}
+2025-11-13 20:14:22 [INFO] 更新任务 {"taskId":"28902a053d6168a21acb9a924d8f4ba6","data":{"status":"pending","metadata":{"lyrics":"","title":"","type":"lyrics"},"error":null}}
+2025-11-13 20:14:22 [INFO] POST /api/upload/audio {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:22 [INFO] 文件上传成功 {"filename":"audio-1763036062654-230002141.mp3","size":4,"url":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763036062654-230002141.mp3"}
+2025-11-13 20:14:22 [INFO] GET /api/upload/list {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:22 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:22 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":false,"instrumental":false,"model":"V5","prompt":"一首轻快的流行歌曲，充满活力","title":"","tags":"","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:14:22 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"6d70856f7e8e6312ebe759fe58d80f17"}}}
+2025-11-13 20:14:22 [INFO] 创建任务 {"taskId":"6d70856f7e8e6312ebe759fe58d80f17","metadata":{"prompt":"一首轻快的流行歌曲，充满活力","type":"music"}}
+2025-11-13 20:14:22 [INFO] POST /api/music/generate {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:22 [INFO] 🎵 调用 Suno API /generate {"params":{"customMode":true,"instrumental":false,"model":"V5","prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:14:23 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"e86f27135dcfa4ddd3d04c1bbd384fd2"}}}
+2025-11-13 20:14:23 [INFO] 创建任务 {"taskId":"e86f27135dcfa4ddd3d04c1bbd384fd2","metadata":{"prompt":"[Verse]\n测试歌词\n[Chorus]\n副歌部分","title":"测试歌曲","tags":"流行, 测试","type":"music"}}
+2025-11-13 20:14:23 [INFO] GET /api/music/task/e86f27135dcfa4ddd3d04c1bbd384fd2 {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:23 [INFO] GET /api/music/task/e86f27135dcfa4ddd3d04c1bbd384fd2/detail {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:23 [INFO] 🔍 查询任务详情 {"taskId":"e86f27135dcfa4ddd3d04c1bbd384fd2"}
+2025-11-13 20:14:23 [INFO] ✅ 任务详情响应 {"data":{"code":200,"msg":"success","data":{"taskId":"e86f27135dcfa4ddd3d04c1bbd384fd2","parentMusicId":"","param":"{\"callBackUrl\":\"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music\",\"customMode\":true,\"instrumental\":false,\"model\":\"V5\",\"negativeTags\":\"无\",\"prompt\":\"[Verse]\\n测试歌词\\n[Chorus]\\n副歌部分\",\"title\":\"测试歌曲\"}","response":null,"status":"PENDING","type":"chirp-crow","operationType":"generate","errorCode":null,"errorMessage":null,"createTime":1763036063000}}}
+2025-11-13 20:14:23 [INFO] POST /api/music/add-vocals {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:23 [INFO] 🎤 调用 Suno API /generate/add-vocals {"params":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763036062654-230002141.mp3","prompt":"[Verse]\n测试人声\n[Chorus]\n副歌","title":"测试人声","style":"流行","negativeTags":"无","vocalGender":"f","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:14:23 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"c5b1508986b943b2b105eb529ae015c8"}}}
+2025-11-13 20:14:23 [INFO] 创建任务 {"taskId":"c5b1508986b943b2b105eb529ae015c8","metadata":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763036062654-230002141.mp3","type":"vocals"}}
+2025-11-13 20:14:23 [INFO] POST /api/music/add-instrumental {"ip":"127.0.0.1","userAgent":"axios/1.13.2"}
+2025-11-13 20:14:23 [INFO] 🎹 调用 Suno API /generate/add-instrumental {"params":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763036062654-230002141.mp3","title":"测试伴奏","tags":"流行","negativeTags":"无","callBackUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/api/callback/music"}}
+2025-11-13 20:14:23 [INFO] ✅ Suno API 响应 {"data":{"code":200,"msg":"success","data":{"taskId":"30a9cc5460ce8b2379678d11a6fd2db8"}}}
+2025-11-13 20:14:23 [INFO] 创建任务 {"taskId":"30a9cc5460ce8b2379678d11a6fd2db8","metadata":{"uploadUrl":"https://lumbricoid-earleen-consonantally.ngrok-free.dev/uploads/audio-1763036062654-230002141.mp3","type":"instrumental"}}

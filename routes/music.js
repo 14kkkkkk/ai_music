@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const sunoApi = require('../services/sunoApi');
 const taskStore = require('../services/taskStore');
+const taskManager = require('../services/taskManager');
 const { logger } = require('../utils/logger');
 
 /**
@@ -27,37 +28,44 @@ function mapSunoStatusToLocal(sunoStatus) {
 }
 
 /**
- * 生成歌词
+ * 生成歌词（异步任务）
  */
 router.post('/generate-lyrics', async (req, res) => {
   try {
-    const { prompt } = req.body;
-    
+    const { prompt, callbackUrl } = req.body;
+
     if (!prompt) {
       return res.status(400).json({
         code: 400,
         msg: 'prompt is required'
       });
     }
-    
-    const params = {
-      prompt,
-      callBackUrl: `${process.env.CALLBACK_BASE_URL}/api/callback/lyrics`
-    };
-    
-    const response = await sunoApi.generateLyrics(params);
-    
-    // 创建本地任务记录
-    if (response.code === 200 && response.data?.taskId) {
-      await taskStore.createTask(response.data.taskId, {
-        prompt,
-        type: 'lyrics'
+
+    if (!callbackUrl) {
+      return res.status(400).json({
+        code: 400,
+        msg: 'callbackUrl is required'
       });
     }
-    
-    return res.json(response);
+
+    // 使用任务管理器创建异步任务
+    const task = await taskManager.createLyricsGenerationTask({
+      prompt,
+      callbackUrl
+    });
+
+    // 立即返回任务ID和状态
+    return res.status(202).json({
+      code: 202,
+      msg: 'Task created successfully',
+      data: {
+        taskId: task.id,
+        status: task.status,
+        progress: task.progress
+      }
+    });
   } catch (error) {
-    logger.error('生成歌词失败', { error: error.message });
+    logger.error('创建歌词生成任务失败', { error: error.message });
     return res.status(500).json({
       code: 500,
       msg: error.message || 'Internal server error'
@@ -114,20 +122,28 @@ router.get('/lyrics/:taskId', async (req, res) => {
 });
 
 /**
- * 生成音乐
+ * 生成音乐（异步任务）
  */
 router.post('/generate', async (req, res) => {
   try {
-    const { customMode, instrumental, model, prompt, title, tags, negativeTags } = req.body;
-    
+    const { customMode, instrumental, model, prompt, title, tags, negativeTags, callbackUrl } = req.body;
+
     if (!model || !prompt) {
       return res.status(400).json({
         code: 400,
         msg: 'model and prompt are required'
       });
     }
-    
-    const params = {
+
+    if (!callbackUrl) {
+      return res.status(400).json({
+        code: 400,
+        msg: 'callbackUrl is required'
+      });
+    }
+
+    // 使用任务管理器创建异步任务
+    const task = await taskManager.createMusicGenerationTask({
       customMode: customMode !== undefined ? customMode : false,
       instrumental: instrumental || false,
       model,
@@ -135,24 +151,21 @@ router.post('/generate', async (req, res) => {
       title: title || '',
       tags: tags || '',
       negativeTags: negativeTags || '无',
-      callBackUrl: `${process.env.CALLBACK_BASE_URL}/api/callback/music`
-    };
-    
-    const response = await sunoApi.generateMusic(params);
-    
-    // 创建本地任务记录
-    if (response.code === 200 && response.data?.taskId) {
-      await taskStore.createTask(response.data.taskId, {
-        prompt,
-        title,
-        tags,
-        type: 'music'
-      });
-    }
-    
-    return res.json(response);
+      callbackUrl
+    });
+
+    // 立即返回任务ID和状态
+    return res.status(202).json({
+      code: 202,
+      msg: 'Task created successfully',
+      data: {
+        taskId: task.id,
+        status: task.status,
+        progress: task.progress
+      }
+    });
   } catch (error) {
-    logger.error('生成音乐失败', { error: error.message });
+    logger.error('创建音乐生成任务失败', { error: error.message });
     return res.status(500).json({
       code: 500,
       msg: error.message || 'Internal server error'
@@ -203,11 +216,11 @@ router.post('/extend', async (req, res) => {
 });
 
 /**
- * 添加人声
+ * 添加人声（异步任务）
  */
 router.post('/add-vocals', async (req, res) => {
   try {
-    const { uploadUrl, prompt, title, style, negativeTags, vocalGender, model } = req.body;
+    const { uploadUrl, prompt, title, style, negativeTags, vocalGender, callbackUrl } = req.body;
 
     if (!uploadUrl || !prompt || !style) {
       return res.status(400).json({
@@ -216,28 +229,36 @@ router.post('/add-vocals', async (req, res) => {
       });
     }
 
-    const params = {
+    if (!callbackUrl) {
+      return res.status(400).json({
+        code: 400,
+        msg: 'callbackUrl is required'
+      });
+    }
+
+    // 使用任务管理器创建异步任务
+    const task = await taskManager.createAddVocalsTask({
       uploadUrl,
       prompt,
       title: title || '',
       style,
       negativeTags: negativeTags || '无',
       vocalGender: vocalGender || 'f',
-      callBackUrl: `${process.env.CALLBACK_BASE_URL}/api/callback/music`
-    };
+      callbackUrl
+    });
 
-    const response = await sunoApi.addVocals(params);
-
-    if (response.code === 200 && response.data?.taskId) {
-      await taskStore.createTask(response.data.taskId, {
-        uploadUrl,
-        type: 'vocals'
-      });
-    }
-
-    return res.json(response);
+    // 立即返回任务ID和状态
+    return res.status(202).json({
+      code: 202,
+      msg: 'Task created successfully',
+      data: {
+        taskId: task.id,
+        status: task.status,
+        progress: task.progress
+      }
+    });
   } catch (error) {
-    logger.error('添加人声失败', { error: error.message });
+    logger.error('创建添加人声任务失败', { error: error.message });
     return res.status(500).json({
       code: 500,
       msg: error.message || 'Internal server error'
@@ -287,12 +308,12 @@ router.post('/add-instrumental', async (req, res) => {
 });
 
 /**
- * 获取任务状态
+ * 获取任务状态（从任务管理器）
  */
 router.get('/task/:taskId', async (req, res) => {
   try {
     const { taskId } = req.params;
-    const task = await taskStore.getTask(taskId);
+    const task = taskManager.getTask(taskId);
 
     if (!task) {
       return res.status(404).json({
@@ -304,7 +325,16 @@ router.get('/task/:taskId', async (req, res) => {
     return res.json({
       code: 200,
       msg: 'success',
-      data: task
+      data: {
+        taskId: task.id,
+        status: task.status,
+        type: task.type,
+        progress: task.progress,
+        result: task.result,
+        error: task.error,
+        createdAt: task.createdAt,
+        updatedAt: task.updatedAt
+      }
     });
   } catch (error) {
     logger.error('获取任务失败', { error: error.message });
@@ -373,6 +403,27 @@ router.delete('/task/:taskId', async (req, res) => {
     });
   } catch (error) {
     logger.error('删除任务失败', { error: error.message });
+    return res.status(500).json({
+      code: 500,
+      msg: error.message || 'Internal server error'
+    });
+  }
+});
+
+/**
+ * 获取任务统计信息
+ */
+router.get('/stats', async (req, res) => {
+  try {
+    const stats = taskManager.getStats();
+
+    return res.json({
+      code: 200,
+      msg: 'success',
+      data: stats
+    });
+  } catch (error) {
+    logger.error('获取统计信息失败', { error: error.message });
     return res.status(500).json({
       code: 500,
       msg: error.message || 'Internal server error'

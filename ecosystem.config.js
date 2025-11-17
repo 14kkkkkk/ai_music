@@ -1,6 +1,8 @@
 /**
  * PM2 配置文件
  * 用于生产环境部署
+ *
+ * 注意：音乐服务不需要文件服务器（所有文件直接上传到 OSS）
  */
 
 module.exports = {
@@ -9,9 +11,10 @@ module.exports = {
       name: 'ai-music-service',
       script: './index.js',
       instances: 1,
+      exec_mode: 'cluster',
       autorestart: true,
       watch: false,
-      max_memory_restart: '500M',
+      max_memory_restart: '1G',
       env: {
         NODE_ENV: 'production',
         PORT: 3001
@@ -21,25 +24,11 @@ module.exports = {
       log_date_format: 'YYYY-MM-DD HH:mm:ss',
       merge_logs: true,
       min_uptime: '10s',
-      max_restarts: 10
-    },
-    {
-      name: 'ai-music-file-server',
-      script: './file-server.js',
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '300M',
-      env: {
-        NODE_ENV: 'production',
-        FILE_SERVER_PORT: 8081
-      },
-      error_file: './logs/file-server-error.log',
-      out_file: './logs/file-server-out.log',
-      log_date_format: 'YYYY-MM-DD HH:mm:ss',
-      merge_logs: true,
-      min_uptime: '10s',
-      max_restarts: 10
+      max_restarts: 10,
+      restart_delay: 4000,
+      kill_timeout: 5000,
+      wait_ready: true,
+      listen_timeout: 10000
     }
   ]
 };

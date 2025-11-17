@@ -12,6 +12,7 @@ const { logger } = require('./utils/logger');
 const musicRoutes = require('./routes/music');
 const uploadRoutes = require('./routes/upload');
 const callbackRoutes = require('./routes/callback');
+const taskManager = require('./services/taskManager');
 
 const app = express();
 const PORT = parseInt(process.env.PORT || '3001', 10);
@@ -31,7 +32,7 @@ app.use((req, res, next) => {
 });
 
 // 确保必要的目录存在
-const requiredDirs = ['./uploads', './data', './logs'];
+const requiredDirs = ['./uploads', './data', './logs', './temp_audio'];
 requiredDirs.forEach(dir => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -51,31 +52,40 @@ app.use('/api/callback', callbackRoutes);
 app.get('/', (req, res) => {
   res.json({
     service: 'AI 音乐生成服务',
-    version: '1.0.0',
-    description: '提供音乐生成、歌词创作、音频处理等功能',
+    version: '2.0.0',
+    description: '提供音乐生成、歌词创作、音频处理等功能（异步任务模式 + OSS上传）',
+    features: [
+      '✅ 任务管理器 - 内存队列、并发控制、状态管理',
+      '✅ OSS上传 - 自动上传音频到OSS，返回文件名',
+      '✅ 异步处理 - 所有任务异步处理，立即返回任务ID',
+      '✅ 回调通知 - 任务完成后主动通知后端',
+      '✅ 自动清理 - 5分钟后自动清理已完成任务'
+    ],
     endpoints: {
-      // 歌词生成
-      generateLyrics: 'POST /api/music/generate-lyrics',
+      // 歌词生成（异步）
+      generateLyrics: 'POST /api/music/generate-lyrics (需要 callbackUrl)',
       getLyricsDetail: 'GET /api/music/lyrics/:taskId',
-      
-      // 音乐生成
-      generateMusic: 'POST /api/music/generate',
+
+      // 音乐生成（异步）
+      generateMusic: 'POST /api/music/generate (需要 callbackUrl)',
       extendMusic: 'POST /api/music/extend',
-      
-      // 音频处理
+
+      // 音频处理（异步）
       uploadAudio: 'POST /api/upload/audio',
-      addVocals: 'POST /api/music/add-vocals',
+      addVocals: 'POST /api/music/add-vocals (需要 callbackUrl)',
       addInstrumental: 'POST /api/music/add-instrumental',
-      
+
       // 任务管理
-      getTask: 'GET /api/music/task/:taskId',
-      getTaskDetail: 'GET /api/music/task/:taskId/detail',
+      getTask: 'GET /api/music/task/:taskId (从任务管理器查询)',
+      getTaskDetail: 'GET /api/music/task/:taskId/detail (从Suno API查询)',
       getAllTasks: 'GET /api/music/tasks',
       deleteTask: 'DELETE /api/music/task/:taskId',
-      
+      getStats: 'GET /api/music/stats (任务统计)',
+
       // 健康检查
       health: 'GET /health'
     },
+    taskManager: taskManager.getStats(),
     documentation: 'https://github.com/your-repo/ai-music-service'
   });
 });
@@ -118,7 +128,7 @@ app.use((err, req, res, next) => {
 // 启动服务（监听 0.0.0.0，允许外网访问）
 app.listen(PORT, '0.0.0.0', () => {
   logger.info('========================================');
-  logger.info('🎵 AI 音乐服务已启动');
+  logger.info('🎵 AI 音乐服务已启动 (v2.0)');
   logger.info('========================================');
   logger.info(`📍 本地访问: http://localhost:${PORT}`);
   logger.info(`📍 外网访问: http://你的服务器IP:${PORT}`);
@@ -127,6 +137,8 @@ app.listen(PORT, '0.0.0.0', () => {
   logger.info(`🔧 环境: ${process.env.NODE_ENV || 'production'}`);
   logger.info(`🔑 Suno API: ${process.env.SUNO_API_KEY ? '已配置' : '未配置'}`);
   logger.info(`📡 回调地址: ${process.env.CALLBACK_BASE_URL || '未配置'}`);
+  logger.info(`☁️  OSS API: ${process.env.OSS_SIGNED_URL_API || '未配置'}`);
+  logger.info(`⚙️  任务管理器: 并发=${process.env.MAX_CONCURRENCY || 10}, 队列=${process.env.MAX_QUEUE_SIZE || 2500}`);
   logger.info(`⚠️  请确保防火墙已开放 ${PORT} 端口`);
   logger.info('========================================');
 });

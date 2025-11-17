@@ -6,13 +6,11 @@
   "type": "commonjs",
   "scripts": {
     "start": "node index.js",
-    "start:file": "node file-server.js",
-    "start:all": "concurrently \"npm run start\" \"npm run start:file\"",
     "pm2:start": "pm2 start ecosystem.config.js",
     "pm2:stop": "pm2 stop ecosystem.config.js",
     "pm2:restart": "pm2 restart ecosystem.config.js",
     "pm2:delete": "pm2 delete ecosystem.config.js",
-    "pm2:logs": "pm2 logs",
+    "pm2:logs": "pm2 logs ai-music-service",
     "pm2:status": "pm2 status"
   },
   "keywords": [
@@ -25,13 +23,15 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
     "axios": "^1.6.0",
-    "dotenv": "^16.3.1",
-    "multer": "^1.4.5-lts.1",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
-    "winston": "^3.11.0",
-    "concurrently": "^8.2.2"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "p-queue": "^9.0.0",
+    "uuid": "^13.0.0",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "pm2": "^5.3.0"
@@ -41,4 +41,3 @@
     "npm": ">=9.0.0"
   }
 }
-

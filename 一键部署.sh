@@ -54,12 +54,43 @@ echo ""
 # 4. 安装依赖
 echo -e "${BLUE}4️⃣  安装依赖...${NC}"
 if [ -d "node_modules" ]; then
-    echo -e "${YELLOW}⚠️  node_modules 已存在，跳过安装${NC}"
-    echo -e "${YELLOW}   如需重新安装，请先删除 node_modules 目录${NC}"
+    echo -e "${YELLOW}⚠️  node_modules 已存在${NC}"
+    echo "检查关键依赖..."
+
+    # 检查关键依赖是否存在
+    NEED_REINSTALL=0
+    if [ ! -d "node_modules/uuid" ]; then
+        echo -e "${RED}❌ uuid 缺失${NC}"
+        NEED_REINSTALL=1
+    fi
+    if [ ! -d "node_modules/p-queue" ]; then
+        echo -e "${RED}❌ p-queue 缺失${NC}"
+        NEED_REINSTALL=1
+    fi
+    if [ ! -d "node_modules/express" ]; then
+        echo -e "${RED}❌ express 缺失${NC}"
+        NEED_REINSTALL=1
+    fi
+
+    if [ $NEED_REINSTALL -eq 1 ]; then
+        echo -e "${YELLOW}⚠️  检测到依赖缺失，重新安装...${NC}"
+        rm -rf node_modules package-lock.json
+        npm install
+        echo -e "${GREEN}✅ 依赖重新安装完成${NC}"
+    else
+        echo -e "${GREEN}✅ 关键依赖都已存在，跳过安装${NC}"
+    fi
 else
     echo "正在安装依赖..."
     npm install
-    echo -e "${GREEN}✅ 依赖安装完成${NC}"
+
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✅ 依赖安装完成${NC}"
+    else
+        echo -e "${RED}❌ 依赖安装失败${NC}"
+        echo "请检查网络连接和 npm 配置"
+        exit 1
+    fi
 fi
 echo ""
 

@@ -26,9 +26,9 @@ class CallbackService {
    */
   async notifyBackend(callbackUrl, payload) {
     logger.info(`📤 开始回调后端: ${callbackUrl}`, {
-      taskType: payload.taskType,
       taskId: payload.taskId,
       status: payload.status,
+      metadataType: payload.metadata?.type,
       payloadSize: JSON.stringify(payload).length
     });
 
@@ -51,8 +51,8 @@ class CallbackService {
         const duration = Date.now() - startTime;
 
         logger.info(`✅ 回调后端成功: ${callbackUrl}`, {
-          taskType: payload.taskType,
           taskId: payload.taskId,
+          metadataType: payload.metadata?.type,
           statusCode: response.status,
           duration: `${duration}ms`,
           attempt: attempt > 1 ? `第${attempt}次尝试` : '首次尝试',
@@ -66,8 +66,8 @@ class CallbackService {
 
         // 详细的错误信息
         const errorDetails = {
-          taskType: payload.taskType,
           taskId: payload.taskId,
+          metadataType: payload.metadata?.type,
           attempt: `${attempt}/${this.maxRetries}`,
           error: error.message,
           code: error.code,

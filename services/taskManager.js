@@ -48,15 +48,15 @@ class TaskManager {
       status: TaskStatus.PENDING,
       type: TaskType.MUSIC_GENERATION,
       input: {
-        customMode: request.customMode,
-        instrumental: request.instrumental,
-        model: request.model,
-        prompt: request.prompt,
-        title: request.title,
-        tags: request.tags,
-        negativeTags: request.negativeTags
+        customMode: request.customMode !== undefined ? request.customMode : false,
+        instrumental: request.instrumental || false,
+        model: request.model || '',
+        prompt: request.prompt || '',
+        title: request.title || '',
+        tags: request.tags || '',
+        negativeTags: request.negativeTags || '无'
       },
-      callbackUrl: request.callbackUrl,
+      callbackUrl: request.callbackUrl || '',
       progress: 0,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -93,9 +93,9 @@ class TaskManager {
       status: TaskStatus.PENDING,
       type: TaskType.LYRICS_GENERATION,
       input: {
-        prompt: request.prompt
+        prompt: request.prompt || ''
       },
-      callbackUrl: request.callbackUrl,
+      callbackUrl: request.callbackUrl || '',
       progress: 0,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -129,14 +129,14 @@ class TaskManager {
       status: TaskStatus.PENDING,
       type: TaskType.ADD_VOCALS,
       input: {
-        uploadUrl: request.uploadUrl,
-        prompt: request.prompt,
-        title: request.title,
-        style: request.style,
-        negativeTags: request.negativeTags,
-        vocalGender: request.vocalGender
+        uploadUrl: request.uploadUrl || '',
+        prompt: request.prompt || '',
+        title: request.title || '',
+        style: request.style || '',
+        negativeTags: request.negativeTags || '无',
+        vocalGender: request.vocalGender || 'f'
       },
-      callbackUrl: request.callbackUrl,
+      callbackUrl: request.callbackUrl || '',
       progress: 0,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -604,12 +604,39 @@ class TaskManager {
    * @param {string} error - 错误信息
    */
   async notifyBackend(task, result, error) {
+    // 构建 metadata 字段，确保所有字段都有值，不返回 undefined
+    let metadata = {};
+
+    if (task.type === TaskType.LYRICS_GENERATION) {
+      // 歌词生成任务的 metadata
+      metadata = {
+        type: 'lyrics',
+        prompt: task.input.prompt || ''
+      };
+    } else if (task.type === TaskType.MUSIC_GENERATION) {
+      // 音乐生成任务的 metadata
+      metadata = {
+        type: 'music',
+        prompt: task.input.prompt || '',
+        model: task.input.model || '',
+        title: task.input.title || '',
+        tags: task.input.tags || ''
+      };
+    } else if (task.type === TaskType.ADD_VOCALS) {
+      // 添加人声任务的 metadata
+      metadata = {
+        type: 'vocals',
+        prompt: task.input.prompt || '',
+        style: task.input.style || ''
+      };
+    }
+
     const payload = {
-      taskId: task.id,
-      taskType: task.type,
-      status: task.status,
-      result,
-      error,
+      taskId: task.id || '',
+      status: task.status || '',
+      result: result || null,
+      metadata,
+      error: error || null,
       completedAt: new Date().toISOString()
     };
 
